@@ -33,6 +33,7 @@ jobs:
          
   # This workflow contains a single job called "greet"
   call-powerbi-workflow:
+    needs: init-step
     uses: ./.github/workflows/reusablejob.yml
     if: needs.init-step.result == 'success' 
     with:
