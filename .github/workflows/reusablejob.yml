@@ -31,7 +31,7 @@ jobs:
     steps:
     # Runs a single command using the runners shell
     - name: checkout required files
-      uses: puzits/checkout-onlyrequiredfiles@main
+      uses: puzits/checkout-onlyfilesrequired@main
       with: 
        files: node_modules/deprecation
        repository: "puzits/checkout-onlyrequiredfiles"
