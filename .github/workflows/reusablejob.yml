@@ -18,8 +18,8 @@ on:
         default: 'PowerBI'
         required: true
       skip: 
-       type: boolean
-       default: false
+       type: string
+       default: 'false'
        description: skip workflow
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -35,7 +35,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Runs a single command using the runners shell       
-    - if:  env.skip != true
+    - if:  env.skip != 'true'
       name: Download artifact file with AKS Cluster details
       uses: actions/download-artifact@v3
       with:
@@ -58,7 +58,7 @@ jobs:
          echo "StepExecuted=step2" >> $env:GITHUB_ENV
             
     - name: finally
-      if: always() && env.skip != true
+      if: always() && env.skip != 'true'
       shell: pwsh
       run: |
            Write-output "Step Executed: ${env:StepExecuted}"
@@ -83,7 +83,7 @@ jobs:
            Convertto-Json $entirestate | set-content -path artifact.json
             
     - name: uploadArtifacts
-      if: always() && env.skip != true
+      if: always() && env.skip != 'true'
       uses: actions/upload-artifact@v3.1.0
       with: 
         name: state
