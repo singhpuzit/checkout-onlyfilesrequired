@@ -39,3 +39,27 @@ jobs:
     with:
       jobname: "PowerBI"
       stepname: "step 1"
+  
+  call-AIML-workflow:
+    needs: init-step
+    uses: ./.github/workflows/reusablejob.yml
+    if: needs.init-step.result == 'success' 
+    with:
+      jobname: "PowerBI"
+      stepname: "step 1"
+      
+  call-BusinessAPI-workflow:
+    needs: init-step
+    uses: ./.github/workflows/reusablejob.yml
+    if: needs.init-step.result == 'success' 
+    with:
+      jobname: "PowerBI"
+      stepname: "step 1"
+      
+  call-WordAPI-workflow:
+    needs: init-step
+    uses: ./.github/workflows/reusablejob.yml
+    if: needs.init-step.result == 'success' 
+    with:
+      jobname: "PowerBI"
+      stepname: "step 1"
