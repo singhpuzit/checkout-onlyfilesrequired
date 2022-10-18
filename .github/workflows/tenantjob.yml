@@ -12,7 +12,11 @@ on:
         description: Step to executed
         default: 'automationdevmt.icertis.com'
         required: true
-   
+      skipBussinessAPI:
+        type: string
+        description: Skip Bussiness API
+        default: 'false'
+        required: true
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   
@@ -20,6 +24,7 @@ jobs:
    runs-on: ubuntu-latest
    env:
     tenantName: ${{ inputs.tenantName }}
+    skipBussinessAPI: ${{ inputs.skipBussinessAPI }}
     
    steps:
     - name: set-state 
@@ -61,6 +66,7 @@ jobs:
     with:
       jobname: "BussinessAPI"
       stepname: "step 20"
+      skipBussinessAPI: env.skipBussinessAPI
       
   call-WordAPI-workflow:
     needs: call-BusinessAPI-workflow
