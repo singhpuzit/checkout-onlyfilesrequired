@@ -70,7 +70,14 @@ jobs:
                  jobname = ${env:jobname}
                  currentstepname = ${env:stepname}
             }
-            $entirestate["${env:jobname}"] = $state
+            if($entirestate[${Env:jobname}])
+            {
+              $entirestate[${Env:jobname}] = $currentstate
+            }
+            else
+            {
+              $entirestate | add-member -NotePropertyName ${Env:jobname} -NotePropertyValue  $currentstate
+            }
            Convertto-Json $entirestate | set-content -path artifact.json
             
     - name: uploadArtifacts
