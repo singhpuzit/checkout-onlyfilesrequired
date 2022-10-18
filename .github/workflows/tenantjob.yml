@@ -18,11 +18,17 @@ jobs:
   
   init-step:
    runs-on: ubuntu-latest
+   env:
+    tenantName: {{ $inputs.tenantName }}
+    
    steps:
     - name: set-state 
       shell: pwsh
       run: | 
-        "" > artifact.json
+            $state =  [PSCustomObject]@{
+                 TenantName = ${env:tenantName}
+            }
+            $state | Convertto-Json > artifact.json
         
     - name: Upload artifacts 
       uses: actions/upload-artifact@v3
