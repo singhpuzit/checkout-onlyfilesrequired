@@ -29,14 +29,7 @@ jobs:
      
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Runs a single command using the runners shell
-    - name: checkout required files
-      uses: puzits/checkout-onlyfilesrequired@main
-      with: 
-       files: node_modules/deprecation
-       repository: "puzits/checkout-onlyrequiredfiles"
-       branch: main
-       
+    # Runs a single command using the runners shell       
     - name: Download artifact file with AKS Cluster details
       uses: actions/download-artifact@v3
       with:
