@@ -45,7 +45,7 @@ jobs:
     uses: ./.github/workflows/reusablejob.yml
     if: needs.init-step.result == 'success' 
     with:
-      jobname: "PowerBI"
+      jobname: "AIML"
       stepname: "step 1"
       
   call-BusinessAPI-workflow:
@@ -53,7 +53,7 @@ jobs:
     uses: ./.github/workflows/reusablejob.yml
     if: needs.init-step.result == 'success' 
     with:
-      jobname: "PowerBI"
+      jobname: "BussinessAPI"
       stepname: "step 1"
       
   call-WordAPI-workflow:
@@ -61,5 +61,5 @@ jobs:
     uses: ./.github/workflows/reusablejob.yml
     if: needs.init-step.result == 'success' 
     with:
-      jobname: "PowerBI"
+      jobname: "WordAI"
       stepname: "step 1"
