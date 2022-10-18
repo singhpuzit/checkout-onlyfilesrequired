@@ -17,6 +17,10 @@ on:
         description: Name of the job
         default: 'PowerBI'
         required: true
+      skip: 
+       type: boolean
+       default: false
+       description: skip workflow
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "greet"
