@@ -71,7 +71,7 @@ jobs:
            write-output "Caught error" 
            write-output  "upload artifacts"
            
-           $entirestate = artifact.json | ConvertFrom-Json
+           $entirestate = Get-Content -path artifact.json | ConvertFrom-Json
            
            $currentstate = [PSCustomObject]@{
                  jobname = ${env:jobname}
