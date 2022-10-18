@@ -1,0 +1,40 @@
+# This is a basic workflow that is manually triggered
+
+name: Tenant job workflow
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+    inputs: 
+      tenantName:
+        type: string
+        description: Step to executed
+        default: 'automationdevmt.icertis.com'
+        required: true
+   
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  
+  init-step:
+   runs-on: ubuntu-latest
+   steps:
+    - name: set-state 
+      shell: pwsh
+      run: | 
+        "" > artifact.json
+        
+    - name: Upload artifacts 
+      uses: actions/upload-artifact@v3
+      with:
+          name: state
+          path: artifact.json
+        
+         
+  # This workflow contains a single job called "greet"
+  call-powerbi-workflow:
+    uses: ./.github/workflows/reusablejob.yml
+    if: needs.init-step.result == 'success' 
+    with:
+      jobname: "PowerBI"
+      stepname: "step 1"

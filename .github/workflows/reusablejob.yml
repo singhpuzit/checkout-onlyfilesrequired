@@ -1,0 +1,90 @@
+# This is a basic workflow that is manually triggered
+
+name: Reusable job workflow
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_call:
+    inputs: 
+      stepname:
+        type: string
+        description: Step to executed
+        default: 'step 1'
+        required: true
+      jobname:
+        type: string
+        description: Name of the job
+        default: 'PowerBI'
+        required: true
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "greet"
+  Job:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    env: 
+      stepname: ${{ inputs.stepname }}
+      jobname: ${{ inputs.jobname }}
+     
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Runs a single command using the runners shell
+    - name: checkout required files
+      uses: puzits/checkout-onlyrequiredfiles@main
+      with: 
+       files: node_modules/deprecation
+       repository: "puzits/checkout-onlyrequiredfiles"
+       branch: main
+       
+    - name: Download artifact file with AKS Cluster details
+      uses: actions/download-artifact@v3
+      with:
+        name: state
+        
+    - name: step 1
+      if: env.stepname == 'step 1'
+      shell: pwsh
+      run: |
+         write-output "step1"
+         echo "stepname=step 2" >>  $env:GITHUB_ENV
+         echo "StepExecuted=step1" >> $env:GITHUB_ENV
+         
+    - name: step 2
+      if:  env.stepname == 'step 2'
+      shell: pwsh
+      run: |
+         write-output "step2"
+          echo "stepname=3" >>  $env:GITHUB_ENV
+         echo "StepExecuted=step2" >> $env:GITHUB_ENV
+         
+    - name: throw an error
+      shell: pwsh
+      run: |
+            throw "some error"
+            
+    - name: finally
+      if: always()
+      shell: pwsh
+      run: |
+           Write-output "Step Executed: ${env:StepExecuted}"
+           write-output "Caught error" 
+           write-output  "upload artifacts"
+           
+           $entirestate = artifact.json | ConvertFrom-Json
+           
+           $currentstate = [PSCustomObject]@{
+                 jobname = ${env:jobname}
+                 currentstepname = ${env:stepname}
+            }
+            $entirestate["${env:jobname}"] = $state
+           Convertto-Json $entirestate | set-content -path artifact.json
+            
+    - name: uploadArtifacts
+      if: always()
+      uses: actions/upload-artifact@v3.1.0
+      with: 
+        name: state
+        path: artifact.json
+        
+   
