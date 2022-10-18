@@ -57,7 +57,7 @@ jobs:
       stepname: "step 1"
       
   call-WordAPI-workflow:
-    needs: init-step
+    needs: call-BusinessAPI-workflow
     uses: ./.github/workflows/reusablejob.yml
     if: needs.init-step.result == 'success' 
     with:
