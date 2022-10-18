@@ -50,11 +50,6 @@ jobs:
          write-output "step2"
           echo "stepname=3" >>  $env:GITHUB_ENV
          echo "StepExecuted=step2" >> $env:GITHUB_ENV
-         
-    - name: throw an error
-      shell: pwsh
-      run: |
-            throw "some error"
             
     - name: finally
       if: always()
@@ -70,9 +65,9 @@ jobs:
                  jobname = ${env:jobname}
                  currentstepname = ${env:stepname}
             }
-            if($entirestate[${Env:jobname}])
+            if([bool]($entirestate.PSobject.Properties.name -match ${env:jobname}))
             {
-              $entirestate[${Env:jobname}] = $currentstate
+             $entirestate."${Env:jobname}" = $currentstate   
             }
             else
             {
