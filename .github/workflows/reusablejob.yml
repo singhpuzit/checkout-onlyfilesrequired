@@ -73,6 +73,7 @@ jobs:
             {
               $entirestate | add-member -NotePropertyName ${Env:jobname} -NotePropertyValue  $currentstate
             }
+           sleep 5
            Convertto-Json $entirestate | set-content -path artifact.json
             
     - name: uploadArtifacts
