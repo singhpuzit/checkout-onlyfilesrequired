@@ -19,6 +19,25 @@ on:
         required: true
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
+
+  send-mail-job:
+   runs-on: ubuntu-latest
+   env:
+    tenantName: ${{ inputs.tenantName }}
+    skipBussinessAPI: ${{ inputs.skipBussinessAPI }}
+    
+   steps: 
+   - name: ✨ Send email, you star
+     uses: dawidd6/action-send-mail@v1.3.0
+     with:
+      server_address: smtp-mail.outlook.com
+      server_port: 587
+      username: puzitsingh@outlook.com
+      password: ${{ secrets.MYPASSWORD }}
+      subject: Please review the deployment
+      body: ${{ github.actor }} just starred deployment where we need your approval   https://github.com/puzits/checkout-onlyfilesrequired/actions/runs/${{ github.GITHUB_RUN_ID }}
+      to: c-k.singh@icertis.com
+      from: puzitsingh@outlook.com
   
   init-step:
    runs-on: ubuntu-latest
