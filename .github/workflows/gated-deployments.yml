@@ -28,7 +28,7 @@ jobs:
     
    steps: 
    - name: ✨ Send email, you star
-     uses: dawidd6/action-send-mail@main
+     uses: dawidd6/action-send-mail@v3
      with:
       server_address: smtp-mail.outlook.com
       server_port: 587
