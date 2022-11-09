@@ -25,6 +25,9 @@ jobs:
    env:
     tenantName: ${{ inputs.tenantName }}
     skipBussinessAPI: ${{ inputs.skipBussinessAPI }}
+   environment: 
+    name: env1
+    url: https://github.com
     
    steps:
     - name: set-state 
