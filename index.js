@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const fs = require('fs');
 
-const token = core.getInput('token');
+const tokens = core.getInput('token');
 
 const repository = core.getInput('repository');
 const files = core.getInput('files', { required: true }).split(' ');
