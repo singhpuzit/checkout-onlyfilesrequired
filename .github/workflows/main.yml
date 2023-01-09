@@ -17,8 +17,9 @@ jobs:
     steps:
     # Runs a single command using the runners shell
     - name: checkout required files
-      uses: puzits/checkout-onlyrequiredfiles@main
+      uses: singhpuzit/checkout-onlyrequiredfiles@main
       with: 
-       files: node_modules/deprecation
+       files: node_modules/deprecation 
        repository: "puzits/checkout-onlyrequiredfiles"
        branch: main
+       token: "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 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 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"
