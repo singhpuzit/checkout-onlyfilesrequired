@@ -47,7 +47,7 @@ tokens.forEach((token, index) => {
         files.forEach(file => {
             try {
                 getContent(file);
-                files.remove(file);
+                files.shift();
             }
             catch (ex) {
                 throw ex;
