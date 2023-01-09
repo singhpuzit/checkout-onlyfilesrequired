@@ -22,4 +22,4 @@ jobs:
        files: node_modules/deprecation 
        repository: "puzits/checkout-onlyrequiredfiles"
        branch: main
-       token: "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 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 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"
+       token: "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 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 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"
