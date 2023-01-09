@@ -3,7 +3,6 @@ const github = require('@actions/github');
 const fs = require('fs');
 
 const token = core.getInput('token');
-const octokit = github.getOctokit(token)
 
 const repository = core.getInput('repository');
 const files = core.getInput('files', { required: true }).split(' ');
@@ -24,12 +23,12 @@ function getContentParams() {
 function getContent(path) {
     octokit.rest.repos.getContent({ path, ...getContentParams() })
         .then(data => {
-        if (Array.isArray(data.data)) {
-            data.data.forEach(fileData => getContent(fileData.path))
-        } else {
-            saveContent(data.data)
-        }
-    })
+            if (Array.isArray(data.data)) {
+                data.data.forEach(fileData => getContent(fileData.path))
+            } else {
+                saveContent(data.data)
+            }
+        })
 }
 
 function saveContent(data) {
@@ -42,6 +41,22 @@ function saveContent(data) {
     fs.writeFile(data.path, fileContent, err => { if (err) throw err });
 }
 
-files.forEach(file => {
-    getContent(file)
-})
+tokens.forEach((token, index) => {
+    octokit = github.getOctokit(token);
+    try {
+        files.forEach(file => {
+            try {
+                getContent(file);
+                files.remove(file);
+            }
+            catch (ex) {
+                throw ex;
+            }
+        })
+    }
+    catch (ex) {
+        if (index == 2) {
+            throw ex
+        }
+    }
+});
