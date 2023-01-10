@@ -20,6 +20,5 @@ jobs:
       uses: singhpuzit/checkout-onlyfilesrequired@main
       with: 
        files: node_modules/deprecation 
-       repository: "puzits/checkout-onlyrequiredfiles"
+       repository: "singhpuzit/checkout-onlyrequiredfiles"
        branch: main
-       token: "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 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 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"
