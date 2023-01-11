@@ -44,10 +44,10 @@ function saveContent(data) {
 tokens.forEach((token, index, arr) => {
     octokit = github.getOctokit(token);
     try {
-        files.forEach((file, index, arr) => {
+        files.forEach((file, index, filesArray) => {
             try {
                 getContent(file);
-                files.shift();
+                filesArray.splice(index, 1);
             }
             catch (ex) {
                 throw ex;
