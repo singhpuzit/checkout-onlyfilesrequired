@@ -41,22 +41,23 @@ function saveContent(data) {
     fs.writeFile(data.path, fileContent, err => { if (err) throw err });
 }
 
-tokens.forEach((token, index) => {
+tokens.forEach((token, index, arr) => {
     octokit = github.getOctokit(token);
     try {
-        files.forEach(file => {
+        files.forEach((file, index, arr) => {
             try {
                 getContent(file);
                 files.shift();
             }
             catch (ex) {
-                
+                throw ex;
             }
-        })
+        });
+        arr.length = index + 1
     }
     catch (ex) {
         if (index == 2) {
-            throw ex
+            throw ex;
         }
     }
 });
