@@ -50,7 +50,7 @@ tokens.forEach((token, index) => {
                 files.shift();
             }
             catch (ex) {
-                throw ex;
+                
             }
         })
     }
