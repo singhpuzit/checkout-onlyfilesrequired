@@ -47,7 +47,6 @@ tokens.forEach((token, index, arr) => {
         files.forEach((file, index, filesArray) => {
             try {
                 getContent(file);
-                filesArray.splice(index, 1);
             }
             catch (ex) {
                 throw ex;
