@@ -48,15 +48,13 @@ tokens.forEach((token, index, arr) => {
             try {
                 getContent(file);
             }
-            catch (ex) {
+            catch(ex) {
                 throw ex;
             }
         });
         arr.length = index + 1
     }
-    catch (ex) {
-        if (index == 2) {
-            throw ex;
-        }
+    catch(ex) {
+          
     }
 });
